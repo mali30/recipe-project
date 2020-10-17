@@ -1,13 +1,8 @@
 package com.mohamedali.recipeproject.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Lob;
-import javax.persistence.CascadeType;
+import jdk.internal.org.jline.utils.DiffHelper;
+
+import javax.persistence.*;
 
 import java.util.Set;
 
@@ -30,6 +25,13 @@ public class Recipe {
     private String directions;
 
     // todo add difficulty
+    /*
+        It can be either an ordinal or string
+        ordinal -> has a value of 0, 1, 2, etc..
+        String -> just a regular string.
+     */
+    @Enumerated(value = EnumType.STRING)
+    private Difficulty difficulty;
 
     /*
     Specifies that a persistent property or field should be persisted as a large object
@@ -41,6 +43,10 @@ public class Recipe {
     @OneToOne(cascade = CascadeType.ALL)
     private Notes notes;
 
+    /*
+        One recipe to many ingredients. Also recipe is the
+        owner in the relationship
+     */
     @OneToMany(
         cascade = CascadeType.ALL,
         mappedBy = "recipe"
@@ -133,6 +139,15 @@ public class Recipe {
     public void setNotes(Notes notes) {
         this.notes = notes;
     }
+
+    public Difficulty getDifficulty() {
+        return difficulty;
+    }
+
+    public void setDifficulty(Difficulty difficulty) {
+        this.difficulty = difficulty;
+    }
+
 
 
 }
