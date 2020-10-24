@@ -17,6 +17,10 @@ public class Category {
 
     private String description;
 
+    /*
+      Many category to many recipes. Also recipe is the
+      owner in the relationship
+   */
     @ManyToMany(mappedBy = "categories")
     private Set<Recipe> recipes;
 
